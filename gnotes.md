@@ -1,0 +1,10 @@
+- setup symph app
+  - https://symfony.com/doc/current/setup.html#creating-symfony-applications
+- datatables ajax codeigniter
+  - https://github.com/ivan006/bg-table-page-1/commit/c19d007e71dce3ab5a971938c7fdfec0630e0168
+- symphony datatable ajax crud
+  - https://www.youtube.com/watch?v=qe1t91bXRiQ
+- my github repo
+  - https://github.com/ivan006/bri_emp__month__2021_jan__id__1
+- How to deploy symfony application on subdomain on shared
+  - https://medium.com/@runawaycoin/deploying-symfony-4-application-to-shared-hosting-with-just-ftp-access-e65d2c5e0e3d
