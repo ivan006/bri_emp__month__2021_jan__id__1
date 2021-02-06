@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Routing\Annotation\Route;
 
 class ApiController
 {
@@ -111,6 +112,27 @@ class ApiController
     return $this->setStatusCode(201)->respond($data);
   }
 
+  // this method allows us to accept JSON payloads in POST requests
+  // since Symfony 4 doesn’t handle that automatically:
+
+  protected function transformJsonBody(\Symfony\Component\HttpFoundation\Request $request)
+  {
+    $data = json_decode($request->getContent(), true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+      return null;
+    }
+
+    if ($data === null) {
+      return $request;
+    }
+
+    $request->request->replace($data);
+
+    return $request;
+  }
+
+
   /**
   * Attempt authorization using jwt-verifier
   *
@@ -132,14 +154,14 @@ class ApiController
     if ($authType != 'Bearer') {
       return false;
     }
-
+    
     // Attempt authorization with the provided token
     try {
       // Setup the JWT Verifier
       $jwtVerifier = (new \Okta\JwtVerifier\JwtVerifierBuilder())
-      ->setAdaptor(new \Okta\JwtVerifier\Adaptors\SpomkyLabsJose())
+      ->setAdaptor(new \Okta\JwtVerifier\Adaptors\FirebasePhpJwt)
       ->setAudience('api://default')
-      ->setClientId('0oa4ascafY26r3YC65d6')
+      ->setClientId('0oa4dnaa6UbE4hehE5d6')
       ->setIssuer('https://dev-46148812.okta.com/oauth2/default')
       ->build();
 
